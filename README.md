@@ -4,13 +4,14 @@
 Сделай fork проекта и измени функцию отрисовки LRESULT CALLBACK WndProc
 
 ##### 1 шаг
-Удали все внутрености оставив функцию такого вида 
-и в начале проекта добавьте математическую библиотеку #include <math.h> (для использования функций sin и cos)
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-///тут пусто
-  return 0;
-}
+Удали все внутрености оставив функцию такого вида.   
+и в начале проекта добавьте математическую библиотеку #include <math.h> (для использования функций sin и cos). 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam). 
+{. 
+///тут пусто. 
+  return 0;     
+}. 
+
 
 ##### 2 шаг
 Добавьте следующие параметры 
