@@ -45,24 +45,24 @@ DefWindowProc - обработчик любого окна
 Теперь ВНУТРЬ конструкции switch (message) добавьте системные команды             
 ***
     case WM_CREATE:             
-    SetTimer(hWnd, 1, 1000, NULL);//создает таймер с указанным интервалом              
-    break;             
+        SetTimer(hWnd, 1, 1000, NULL);//создает таймер с указанным интервалом              
+        break;             
     case WM_TIMER:             
-    i+=0.2;             
-    y = sin(i)*r;             
-    x = cos(i)*r;             
-    y += y0; x += x0;             
-    InvalidateRect(hWnd, NULL, TRUE);//отрисовывает прямоугольник             
-    break;             
+        i+=0.2;             
+        y = sin(i)*r;             
+        x = cos(i)*r;             
+        y += y0; x += x0;             
+        InvalidateRect(hWnd, NULL, TRUE);//отрисовывает прямоугольник             
+        break;             
     case WM_PAINT:             
-    hdc = BeginPaint(hWnd, &ps);//назначения отрисовки для главного окна             
-    MoveToEx(hdc, x0, y0, &p);// перемещение пера для отрисовки             
-    LineTo(hdc, x, y);//отрисовка линии по таймкоду             
-    EndPaint(hWnd, &ps);             
-    break;             
+        hdc = BeginPaint(hWnd, &ps);//назначения отрисовки для главного окна             
+        MoveToEx(hdc, x0, y0, &p);// перемещение пера для отрисовки             
+        LineTo(hdc, x, y);//отрисовка линии по таймкоду             
+        EndPaint(hWnd, &ps);             
+        break;             
     case WM_DESTROY:             
-    KillTimer(hWnd, 1);//уничтожение предыдущей линии             
-    PostQuitMessage(0);             
-    break;            
+        KillTimer(hWnd, 1);//уничтожение предыдущей линии             
+        PostQuitMessage(0);             
+        break;            
     
 ### ЕСЛИ все шаги выполнены то ошибок не будет :)
