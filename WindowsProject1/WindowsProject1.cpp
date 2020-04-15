@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "WindowsProject1.h"
+#include <math.h> 
 
 #define MAX_LOADSTRING 100
 
@@ -124,59 +125,40 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	HWND wLog;
-	HWND wPass;
-    switch (message)
-    {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-			/*
-			case 10002: {
-				char login[17];
-				int lenL = GetWindowTextA(wLog, login, 17);
-				char log = atoi(login);
-				char password[17];
-				int legP = GetWindowTextA(wPass, password, 17);
-				char pass = atoi(password);
-				MessageBoxA(hWnd, "Login and Password: " + log + pass, "!", MB_ICONEXCLAMATION);
-				MessageBoxA(hWnd, "Login and Password: " + lenL + legP, "!", MB_ICONEXCLAMATION);
-				break;
-			}
-			*/
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-			TextOutA(hdc, 10, 14, "Логин:", 7);
-			TextOutA(hdc, 10, 40, "Пароль:", 7);
-			CreateWindowA("button", "Вход", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-				10, 60, 80, 30, hWnd, (HMENU)10002, hInst, NULL);
-			//wLog;
-			//wPass;
-            EndPaint(hWnd, &ps);
-        }
-        break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
+	PAINTSTRUCT ps;
+	HDC hdc;
+	POINT p;
+	static float x = 300, y = 400, r = 100;
+	static double i;
+	static int x0 = 400, y0 = 400;
+	switch (message)
+	{
+	case WM_CREATE:
+		SetTimer(hWnd, 1, 1000, NULL);//создает таймер с указанным интервалом              
+		break;
+	case WM_TIMER:
+		i += 0.2;
+		y = sin(i) * r;
+		x = cos(i) * r;
+		y += y0; x += x0;
+		InvalidateRect(hWnd, NULL, TRUE);//отрисовывает прямоугольник             
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);//назначения отрисовки для главного окна  
+		TextOutA(hdc, 400, 300, "12", 2);
+		TextOutA(hdc, 500, 400, "3", 1);
+		TextOutA(hdc, 400, 500, "6", 1);
+		TextOutA(hdc, 300, 400, "9", 1);
+		MoveToEx(hdc, x0, y0, &p);// перемещение пера для отрисовки             
+		LineTo(hdc, x, y);//отрисовка линии по таймкоду             
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		KillTimer(hWnd, 1);//уничтожение предыдущей линии             
+		PostQuitMessage(0);
+		break;
+	default: return DefWindowProc(hWnd, message, wParam, lParam);
+	}
     return 0;
 }
 
